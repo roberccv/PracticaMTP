@@ -74,6 +74,17 @@ public class Conexion {
         }
         return rs;
     }
- 
-    
+
+    public ResultSet buscarInterpretacion(String nombre){
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+            pst = conectar().prepareStatement("select nombrePeli from interpretación inner join actor on interpretación.id_actor = actor.id_actor inner join peliculas on interpretación.nombrePeli = peliculas.nombrePelicula where nombre = ?;");
+            pst.setString(1, nombre);
+            rs = pst.executeQuery();
+        }catch(Exception e){
+
+        }
+        return rs;
+    }
 }

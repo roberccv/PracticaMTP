@@ -26,6 +26,8 @@ public class VentanaPrincipal {
         initComponents();
     }
     public static String valor;
+    public static String busPeli;
+    public static String busPeli2;
     public static String titString;
     public static String genString;
     public static String durString;
@@ -39,6 +41,9 @@ public class VentanaPrincipal {
     public static final Font FUENTE= new Font("Serif", Font.BOLD, 20);
 
     public  void initComponents(){
+
+        int bloque1 = 140;
+        int bloque2 = -170;
 
         //Fuentes
         Font fuente1 = FUENTE;
@@ -87,20 +92,23 @@ public class VentanaPrincipal {
 
                     while (rs.next()) {
 
-
                         resultado.append(rs.getString("nombrePelicula"));
+
                         resultado.append(",");
-
-                        Date fecha = rs.getDate("fechaEstreno");
-
+                        //Date fecha = rs.getDate("fechaEstreno");
                         //String fechaString = fecha.toString();
                         //resultado.append(fechaString);
-                        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                        String text = df.format(fecha);
-                        resultado.append(text);
+                        //DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                        //String text = df.format(fecha);
+                        //resultado.append(text);
                         resultado.append(", ");
                         resultado.append(String.valueOf(rs.getDouble("duracion")));
                         resultado.append(", ");
+                        resultado.append(rs.getString("genero"));
+                        resultado.append(" ,");
+                        resultado.append(String.valueOf(rs.getDouble("ingresos")));
+                        resultado.append(" ,");
+                        resultado.append(rs.getString("nombreBanda"));
 
                     }
                     String pasar = resultado.getText();
@@ -137,110 +145,42 @@ public class VentanaPrincipal {
         sloLabel.setBounds(121,230,800, 30);
         frame.add(sloLabel);
 
-        //Label
-        JLabel filtros = new JLabel("🔎 Búsqueda avanzada:");
-        filtros.setForeground(Color.white);
-        filtros.setBounds(100,400,300, 100);
-        filtros.setFont(fuente1);
-        frame.add(filtros);
 
-        //Título textfield
-        JLabel titLabel = new JLabel("Título:");
-        titLabel.setFont(fuente1);
-        titLabel.setForeground(Color.white);
-        titLabel.setBounds(100,500,200, 30);
-        frame.add(titLabel);
 
-        JTextField titTexto = new JTextField("Titanic");
-        titTexto.setBounds(100,530,200,30);
-        frame.add(titTexto);
+        JTextField actTexto = new JTextField("Begoña Vargas");
+        actTexto.setBounds(100,600 + bloque2,800,30);
+        frame.add(actTexto);
 
-        // Género textfield
-        JLabel genLabel = new JLabel("Género:");
-        genLabel.setFont(fuente1);
-        genLabel.setForeground(Color.white);
-        genLabel.setBounds(400,500,200, 30);
-        frame.add(genLabel);
-
-        JTextField interTexto = new JTextField("Terror");
-        interTexto.setBounds(400,530,200,30);
-        frame.add(interTexto);
-
-        //Duración desplegable
-        JLabel durLabel = new JLabel("Duración:");
-        durLabel.setFont(fuente1);
-        durLabel.setForeground(Color.white);
-        durLabel.setBounds(700,500,100, 30);
-        frame.add(durLabel);
-
-        String[] duraciones = {"30 min", "1h", "1h 30 min", "2h", "2h 30 min", "3h", "3h 30 min", "4h"};
-        JComboBox durComBox = new JComboBox<String>(duraciones);
-        durComBox.setBounds(700,530,200, 30);
-        durComBox.setFont(fuente1);
-        frame.add(durComBox);
-
-        // Año de estreno
-        JLabel anoLabel = new JLabel("Año de estreno:");
-        anoLabel.setFont(fuente1);
-        anoLabel.setForeground(Color.white);
-        anoLabel.setBounds(100,650,200, 30);
-        frame.add(anoLabel);
-
-        JTextField anoTexto = new JTextField("2000");
-        anoTexto.setBounds(100,680,200,30);
-        frame.add(anoTexto);
-
-        // Ingresos Generados
-        JLabel ingLabel = new JLabel("Ingresos Generados:");
-        ingLabel.setFont(fuente1);
-        ingLabel.setForeground(Color.white);
-        ingLabel.setBounds(400,650,200, 30);
-        frame.add(ingLabel);
-
-        JTextField ingTexto = new JTextField("Titanic");
-        ingTexto.setBounds(400,680,200,30);
-        frame.add(ingTexto);
-
-        // Director desplegable
-        JLabel dirLabel = new JLabel("Director:");
-        dirLabel.setFont(fuente1);
-        dirLabel.setForeground(Color.white);
-        dirLabel.setBounds(700,650,200, 30);
-        frame.add(dirLabel);
-
-        JTextField dirTexto = new JTextField("Javi Martinez");
-        dirTexto.setBounds(700,680,200,30);
-        frame.add(dirTexto);
-
-        // Banda sonora
-        JLabel bandaLabel = new JLabel("Banda sonora:");
-        bandaLabel.setFont(fuente1);
-        bandaLabel.setForeground(Color.white);
-        bandaLabel.setBounds(100,800,200,30);
-        frame.add(bandaLabel);
-
-        JTextField bandaTexto = new JTextField("Titanic");
-        bandaTexto.setBounds(100,830,200,30);
-        frame.add(bandaTexto);
-
-        class OyenteBoton2 implements ActionListener {
+        class OyenteBotonAct implements ActionListener {
             @Override
-            public void actionPerformed(ActionEvent e2){
-                titString = titTexto.getText();
-                genString = genLabel.getText();
-                durString = durLabel.getText();
-                anoString = anoLabel.getText();
-                ingString = ingLabel.getText();
-                dirString = dirLabel.getText();
-                banString = bandaTexto.getText();
-
+            public void actionPerformed(ActionEvent e){
+                String busqueda = actTexto.getText();
+                Ventana2 ventana = new Ventana2();
+                Conexion conexion = new Conexion();
+                ResultSet rs = conexion.buscarInterpretacion(busqueda);
+                JTextArea resultado = new JTextArea();
+                try {
+                    while(rs.next()){
+                        resultado.append(rs.getString("nombrePeli"));
+                        resultado.append("\n");
+                    }
+                    String pasar = resultado.getText();
+                    ventana.initComponents(pasar);
+                }catch (Exception ex){
+                    throw new RuntimeException(ex);
+                }
             }
         }
 
-        JButton botonBusquedaAvan = new JButton("Búsqueda avanzada");
-        botonBusquedaAvan.addActionListener(new OyenteBoton2());
-        botonBusquedaAvan.setBounds(700,840,200,20);;
-        frame.add(botonBusquedaAvan);
+        JButton botonBusquedaAct = new JButton("Buscar");
+        botonBusquedaAct.addActionListener(new OyenteBotonAct());
+        botonBusquedaAct.setBounds(800,640 + bloque2,100,20);;
+        frame.add(botonBusquedaAct);
+
+
+
+
+
 
 
         frame.setVisible(true);
