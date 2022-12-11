@@ -13,9 +13,12 @@ import BaseDatos.Conexion;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.MappedByteBuffer;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.*;
 
 public class VentanaPrincipal {
@@ -69,7 +72,7 @@ public class VentanaPrincipal {
         cajaTexto.setBounds(100,200,800,30);
         frame.add(cajaTexto);
 
-        JTextArea resultado = new JTextArea();
+
         class OyenteBoton implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -79,20 +82,31 @@ public class VentanaPrincipal {
                 Conexion conexion = new Conexion();
 
                 ResultSet rs = conexion.seleccionarPeli(busqueda);
+                JTextArea resultado = new JTextArea();
                 try {
+
                     while (rs.next()) {
+
 
                         resultado.append(rs.getString("nombrePelicula"));
                         resultado.append(",");
-                        resultado.append(String.valueOf(rs.getDate("fechaEstreno")));
+
+                        Date fecha = rs.getDate("fechaEstreno");
+
+                        //String fechaString = fecha.toString();
+                        //resultado.append(fechaString);
+                        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                        String text = df.format(fecha);
+                        resultado.append(text);
                         resultado.append(", ");
-                        resultado.append(String.valueOf(rs.getInt("duracion")));
+                        resultado.append(String.valueOf(rs.getDouble("duracion")));
                         resultado.append(", ");
 
                     }
-                    ventana.initComponents(String.valueOf(resultado));
+                    String pasar = resultado.getText();
+                    ventana.initComponents(pasar);
                 }catch(Exception exx){
-
+                    throw new RuntimeException(exx);
                 }
             }
         }

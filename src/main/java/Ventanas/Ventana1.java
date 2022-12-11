@@ -21,7 +21,7 @@ public class Ventana1 {
     }
 
 
-    public void initComponents(String nombre) {
+    public void initComponents(String pasar) {
         int i = 0;
 
         JFrame frame = new JFrame();
@@ -31,7 +31,7 @@ public class Ventana1 {
         //JTextArea resul = new JTextArea();
         //JLabel probar = new JLabel(nombre );
         //JLabel dur = new JLabel(String.valueOf(duracion));
-        JTextField texto = new JTextField(resultado);
+        JTextField texto = new JTextField(pasar);
         frame.add(texto);
         frame.setVisible(true);
 
