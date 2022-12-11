@@ -28,9 +28,11 @@ public class Ventana1 {
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-
-        JLabel probar = new JLabel(nombre );
-        frame.add(probar);
+        //JTextArea resul = new JTextArea();
+        //JLabel probar = new JLabel(nombre );
+        //JLabel dur = new JLabel(String.valueOf(duracion));
+        JTextField texto = new JTextField(resultado);
+        frame.add(texto);
         frame.setVisible(true);
 
 

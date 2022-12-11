@@ -13,6 +13,7 @@ import BaseDatos.Conexion;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
@@ -68,11 +69,10 @@ public class VentanaPrincipal {
         cajaTexto.setBounds(100,200,800,30);
         frame.add(cajaTexto);
 
+        JTextArea resultado = new JTextArea();
         class OyenteBoton implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e){
-               // valor = cajaTexto.getText();
-                //System.out.println(valor);
                 String busqueda = cajaTexto.getText();
                 Ventana1 ventana = new Ventana1();
 
@@ -81,9 +81,16 @@ public class VentanaPrincipal {
                 ResultSet rs = conexion.seleccionarPeli(busqueda);
                 try {
                     while (rs.next()) {
-                        String nombre = rs.getString("nombrePelicula");
-                        ventana.initComponents(nombre);
+
+                        resultado.append(rs.getString("nombrePelicula"));
+                        resultado.append(",");
+                        resultado.append(String.valueOf(rs.getDate("fechaEstreno")));
+                        resultado.append(", ");
+                        resultado.append(String.valueOf(rs.getInt("duracion")));
+                        resultado.append(", ");
+
                     }
+                    ventana.initComponents(String.valueOf(resultado));
                 }catch(Exception exx){
 
                 }
