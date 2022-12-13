@@ -4,15 +4,14 @@
  */
 package Ventanas;
 
-import BaseDatos.*;
 
 
 import javax.swing.*;
-import java.sql.ResultSet;
+
 
 /**
  *
- * @author
+ * @author Rober
  */
 public class Ventana1 {
 

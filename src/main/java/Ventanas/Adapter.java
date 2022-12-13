@@ -31,8 +31,7 @@ public class Adapter {
                 resultado.append(rs.getString("nombreBanda"));
 
             }
-            String pasar = resultado.getText();
-            return pasar;
+            return resultado.getText();
         }catch(Exception exx){
             throw new RuntimeException(exx);
         }

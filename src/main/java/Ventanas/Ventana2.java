@@ -1,11 +1,10 @@
 package Ventanas;
 
 import javax.swing.*;
-import java.sql.ResultSet;
+
 
 public class Ventana2 {
 
-    ResultSet rs;
     public Ventana2(){
         initComponents("");
     }

@@ -13,13 +13,7 @@ import BaseDatos.Conexion;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.nio.MappedByteBuffer;
-import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Set;
 import javax.swing.*;
 
 public class VentanaPrincipal {
@@ -52,7 +46,6 @@ public class VentanaPrincipal {
         Font fuente1 = FUENTE;
 
         //Colores
-        Color colorFondo = COLORFONDO;
         Color colorLogo = COLORLOGO;
 
         //Inicialización base
@@ -60,7 +53,7 @@ public class VentanaPrincipal {
 
 
         frame.setSize(1000,1000);
-        frame.getContentPane().setBackground(colorFondo);
+        frame.getContentPane().setBackground(COLORFONDO);
 
         //icono imagen
         Image icono = Toolkit.getDefaultToolkit().getImage("media/TruFilmsIcono.png");
@@ -125,7 +118,7 @@ public class VentanaPrincipal {
 
         JButton deshacer = new JButton("Búsqueda anterior");
         deshacer.addActionListener(new deshacer());
-        deshacer.setBounds(650 ,240 + bloque1,140,20);;
+        deshacer.setBounds(650 ,240 + bloque1,140,20);
         frame.add(deshacer);
 
         //Label
@@ -185,7 +178,7 @@ public class VentanaPrincipal {
 
         JButton botonBusquedaAct = new JButton("Buscar");
         botonBusquedaAct.addActionListener(new OyenteBotonAct());
-        botonBusquedaAct.setBounds(800,640 + bloque2,100,20);;
+        botonBusquedaAct.setBounds(800,640 + bloque2,100,20);
         frame.add(botonBusquedaAct);
 
         // Director desplegable
@@ -209,7 +202,7 @@ public class VentanaPrincipal {
 
         JButton botonBusquedaDir = new JButton("Buscar");
         botonBusquedaDir.addActionListener(new OyenteBotonDir());
-        botonBusquedaDir.setBounds(800,720 + bloque2,100,20);;
+        botonBusquedaDir.setBounds(800,720 + bloque2,100,20);
         frame.add(botonBusquedaDir);
 
 

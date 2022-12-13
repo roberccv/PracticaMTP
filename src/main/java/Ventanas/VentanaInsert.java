@@ -7,11 +7,9 @@ package Ventanas;
 import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.sql.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+
 
 import BaseDatos.*;
 
@@ -20,7 +18,7 @@ import BaseDatos.*;
  * @author aleja
  */
 public class VentanaInsert{
-    private javax.swing.JButton btn_guardar;
+
     private javax.swing.JTextField cajaTexto;
     private javax.swing.JTextField cajaTexto2;
     private javax.swing.JTextField cajaTexto3;

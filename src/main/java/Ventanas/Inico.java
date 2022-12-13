@@ -4,7 +4,6 @@ package Ventanas;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 
 public class Inico{
 
@@ -58,7 +57,7 @@ public class Inico{
                     vp.setVisible(true);
 
                 }catch(Exception exx){
-
+                    throw new RuntimeException(exx);
                 }
             }
         }

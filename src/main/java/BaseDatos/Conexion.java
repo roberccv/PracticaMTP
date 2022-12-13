@@ -6,11 +6,7 @@ package BaseDatos;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Locale;
-import java.util.logging.*;
-import java.awt.*;
 
 
 /**
@@ -64,27 +60,27 @@ public class Conexion {
     }
 
     public ResultSet seleccionarPeli(String nombre){
-        PreparedStatement pst = null;
+        PreparedStatement pst;
         ResultSet rs = null;
         try{
             pst = conectar().prepareStatement("SELECT * FROM peliculas WHERE nombrePelicula = ?");
             pst.setString(1, nombre);
             rs = pst.executeQuery();
         }catch(Exception e){
-
+            throw new RuntimeException(e);
         }
         return rs;
     }
 
     public ResultSet buscarInterpretacion(String nombre){
-        PreparedStatement pst = null;
+        PreparedStatement pst;
         ResultSet rs = null;
         try{
             pst = conectar().prepareStatement("select nombrePeli from interpretación inner join actor on interpretación.id_actor = actor.id_actor inner join peliculas on interpretación.nombrePeli = peliculas.nombrePelicula where nombre = ?;");
             pst.setString(1, nombre);
             rs = pst.executeQuery();
         }catch(Exception e){
-
+            throw new RuntimeException(e);
         }
         return rs;
     }
