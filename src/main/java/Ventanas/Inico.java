@@ -1,6 +1,5 @@
 package Ventanas;
 
-import BaseDatos.Conexion;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +17,8 @@ public class Inico{
 
     private void initComponents(){
         JFrame frame = new JFrame("Inicio");
+        frame.setSize(500,500);
+        frame.setLayout(null);
 
 
         class OyenteBoton1 implements ActionListener {
@@ -31,6 +32,7 @@ public class Inico{
 
 
                 }catch(Exception exx){
+                    exx.printStackTrace();
 
                 }
             }
@@ -38,8 +40,9 @@ public class Inico{
 
         insertar = new JButton("Inserción");
         insertar.addActionListener(new OyenteBoton1());
-        insertar.setBounds(800,380,10,20);
         frame.add(insertar);
+        insertar.setBounds(50,180,400,100);
+
 
 
 
@@ -63,9 +66,10 @@ public class Inico{
 
         consultar = new JButton("Consultas");
         consultar.addActionListener(new OyenteBoton2());
-        consultar.setBounds(800,240,10,20);
         frame.add(consultar);
-        frame.setSize(500,500);
+        consultar.setBounds(50,300,400,100);
+
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 

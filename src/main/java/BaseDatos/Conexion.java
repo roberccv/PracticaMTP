@@ -32,6 +32,7 @@ public class Conexion {
              cn = DriverManager.getConnection(url);
         }catch (Exception ex){
             System.out.println("No se ha conectado");
+            ex.printStackTrace();
         }
         return cn;
     }
