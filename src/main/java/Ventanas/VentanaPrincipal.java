@@ -19,30 +19,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Set;
 import javax.swing.*;
 
 public class VentanaPrincipal {
     public VentanaPrincipal(){
         initComponents();
     }
-    public static String valor;
+
+
     public static String busPeli;
     public static String busPeli2;
-    public static String titString;
-    public static String genString;
-    public static String durString;
-    public static String anoString;
-    public static String ingString;
-    public static String dirString;
-    public static String banString;
 
     public static final Color COLORLOGO = new Color(103,210,255,255);
     public static final Color COLORFONDO = new Color(176, 208, 234,255);
     public static final Font FUENTE= new Font("Serif", Font.BOLD, 20);
 
+    public static void setState(String dato){
+        busPeli2 = dato;
+    }
+
+    public static String getState(){
+        return busPeli2;
+    }
+
     public  void initComponents(){
 
-        int bloque1 = 140;
+        int bloque1 = 150;
         int bloque2 = -170;
 
         //Fuentes
@@ -51,14 +54,16 @@ public class VentanaPrincipal {
         //Colores
         Color colorFondo = COLORFONDO;
         Color colorLogo = COLORLOGO;
+
         //Inicialización base
         JFrame frame = new JFrame("TruFilms");
+
 
         frame.setSize(1000,1000);
         frame.getContentPane().setBackground(colorFondo);
 
         //icono imagen
-        Image icono = Toolkit.getDefaultToolkit().getImage("TruFilmsIcono.png");
+        Image icono = Toolkit.getDefaultToolkit().getImage("media/TruFilmsIcono.png");
         frame.setIconImage(icono);
 
         //quitar maximizar
@@ -73,14 +78,18 @@ public class VentanaPrincipal {
         //ELEMENTOS
 
         //TextFiled
-        JTextField cajaTexto = new JTextField("Titanic 1997 James Cameron");
-        cajaTexto.setBounds(100,200,800,30);
+        JTextField cajaTexto = new JTextField("Titanic");
+        cajaTexto.setBounds(100,200 + bloque1,800,30);
         frame.add(cajaTexto);
 
 
         class OyenteBoton implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e){
+                setState(busPeli);
+                busPeli=cajaTexto.getText();
+                System.out.println(busPeli);
+
                 String busqueda = cajaTexto.getText();
 
 
@@ -95,12 +104,33 @@ public class VentanaPrincipal {
 
         JButton botonBusqueda = new JButton("Buscar");
         botonBusqueda.addActionListener(new OyenteBoton());
-        botonBusqueda.setBounds(800,240,100,20);
+        botonBusqueda.setBounds(800,240 + bloque1,100,20);
         frame.add(botonBusqueda);
+
+        class deshacer implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                if(busPeli2 == null){
+                    System.out.println("No existe búsqueda anterior`");
+                }
+                else{
+                    System.out.println("La busqueda anterior es" + getState());
+                    cajaTexto.setText(getState());
+                    cajaTexto.setBounds(100 ,200 + bloque1,800,30);
+                    frame.add(cajaTexto);
+                }
+            }
+        }
+
+        JButton deshacer = new JButton("Búsqueda anterior");
+        deshacer.addActionListener(new deshacer());
+        deshacer.setBounds(650 ,240 + bloque1,140,20);;
+        frame.add(deshacer);
 
         //Label
         JLabel titulo = new JLabel("TruFilms");
-        titulo.setBounds(100,116,600, 100);
+        titulo.setBounds(100,116 + bloque1,600, 100);
         titulo.setForeground(Color.white);
         titulo.setFont(new Font("Serif", Font.BOLD, 100));
         frame.add(titulo);
@@ -108,17 +138,22 @@ public class VentanaPrincipal {
 
         //Logo
         JLabel logo = new JLabel(); //JLabel Creation
-        logo.setIcon(new ImageIcon("TruFilmsIcono.png"));
-        logo.setBounds(640,100,300,100);
+        logo.setIcon(new ImageIcon(icono));
+        logo.setBounds(640,100 + bloque1,300,100);
         frame.add(logo);
 
         //Slogan
         JLabel sloLabel = new JLabel("Descubre algo más que la historia...");
         sloLabel.setFont(new Font("Serif", Font.BOLD, 25));
         sloLabel.setForeground(Color.white);
-        sloLabel.setBounds(121,230,800, 30);
+        sloLabel.setBounds(121,630,800, 30);
         frame.add(sloLabel);
 
+        JLabel actLabel = new JLabel("Actor/actriz:");
+        actLabel.setFont(fuente1);
+        actLabel.setForeground(Color.white);
+        actLabel.setBounds(100,570 + bloque2,200, 30);
+        frame.add(actLabel);
 
 
         JTextField actTexto = new JTextField("Begoña Vargas");
@@ -126,8 +161,11 @@ public class VentanaPrincipal {
         frame.add(actTexto);
 
         class OyenteBotonAct implements ActionListener {
+
             @Override
             public void actionPerformed(ActionEvent e){
+
+
                 String busqueda = actTexto.getText();
                 Ventana2 ventana = new Ventana2();
                 Conexion conexion = new Conexion();
@@ -150,7 +188,29 @@ public class VentanaPrincipal {
         botonBusquedaAct.setBounds(800,640 + bloque2,100,20);;
         frame.add(botonBusquedaAct);
 
+        // Director desplegable
+        JLabel dirLabel = new JLabel("Director/directora:");
+        dirLabel.setFont(fuente1);
+        dirLabel.setForeground(Color.white);
+        dirLabel.setBounds(100,650 + bloque2,200, 30);
+        frame.add(dirLabel);
 
+        JTextField dirTexto = new JTextField("James Cameron");
+        dirTexto.setBounds(100,680 + bloque2,800,30);
+        frame.add(dirTexto);
+
+        class OyenteBotonDir implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e){
+               String busqueda = dirTexto.getText();
+                System.out.println(busqueda);
+            }
+        }
+
+        JButton botonBusquedaDir = new JButton("Buscar");
+        botonBusquedaDir.addActionListener(new OyenteBotonDir());
+        botonBusquedaDir.setBounds(800,720 + bloque2,100,20);;
+        frame.add(botonBusquedaDir);
 
 
 
