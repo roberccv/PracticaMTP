@@ -12,12 +12,12 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author aleja
+ * @author
  */
 public class Ventana1 {
-  ResultSet rs;
+
     public Ventana1(){
-        initComponents("");
+
     }
 
 
