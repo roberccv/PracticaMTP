@@ -95,9 +95,10 @@ public class VentanaPrincipal {
                         resultado.append(rs.getString("nombrePelicula"));
 
                         resultado.append(",");
-                        //Date fecha = rs.getDate("fechaEstreno");
-                        //String fechaString = fecha.toString();
-                        //resultado.append(fechaString);
+                        String fechaString = rs.getString("fechaEstreno");
+
+                        // = fecha.toString();
+                        resultado.append(fechaString);
                         //DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                         //String text = df.format(fecha);
                         //resultado.append(text);
@@ -158,14 +159,13 @@ public class VentanaPrincipal {
                 Ventana2 ventana = new Ventana2();
                 Conexion conexion = new Conexion();
                 ResultSet rs = conexion.buscarInterpretacion(busqueda);
-                JTextArea resultado = new JTextArea();
+                StringBuilder resultado = new StringBuilder();
                 try {
                     while(rs.next()){
                         resultado.append(rs.getString("nombrePeli"));
-                        resultado.append("\n");
+                        resultado.append('\n');
                     }
-                    String pasar = resultado.getText();
-                    ventana.initComponents(pasar);
+                    ventana.initComponents(resultado.toString());
                 }catch (Exception ex){
                     throw new RuntimeException(ex);
                 }

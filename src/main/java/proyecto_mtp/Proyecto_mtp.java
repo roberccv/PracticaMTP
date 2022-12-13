@@ -9,7 +9,6 @@ import Ventanas.*;
 import BaseDatos.*;
 
 /**
- *
  * @author aleja
  */
 public class Proyecto_mtp {
@@ -18,7 +17,7 @@ public class Proyecto_mtp {
         //inicio.setVisible(true);
 
         //VentanaInsert vi = new VentanaInsert();
-       // vi.setVisible(true);
+        //vi.setVisible(true);
         //VentanaPrincipal vp = new VentanaPrincipal();
         inicio.setVisible(true);
     }
