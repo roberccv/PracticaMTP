@@ -23,6 +23,7 @@ public class Ventana1 {
 
     public void initComponents(String pasar) {
 
+
         JFrame frame = new JFrame();
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.sql.ResultSet;
 
 public class Adapter {
-    public static void adaptar(ResultSet rs){
+    public static String adaptar(ResultSet rs){
+
         JTextArea resultado = new JTextArea();
         try {
 
@@ -12,7 +13,7 @@ public class Adapter {
 
                 resultado.append(rs.getString("nombrePelicula"));
 
-                resultado.append(",");
+                resultado.append("\n");
                 String fechaString = rs.getString("fechaEstreno");
 
                 // = fecha.toString();
@@ -20,19 +21,18 @@ public class Adapter {
                 //DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 //String text = df.format(fecha);
                 //resultado.append(text);
-                resultado.append(", ");
+                resultado.append("\n ");
                 resultado.append(String.valueOf(rs.getDouble("duracion")));
-                resultado.append(", ");
+                resultado.append("\n ");
                 resultado.append(rs.getString("genero"));
-                resultado.append(" ,");
+                resultado.append(" \n");
                 resultado.append(String.valueOf(rs.getDouble("ingresos")));
-                resultado.append(" ,");
+                resultado.append(" \n");
                 resultado.append(rs.getString("nombreBanda"));
 
             }
             String pasar = resultado.getText();
-            Ventana1 ventana = new Ventana1();
-            ventana.initComponents(pasar);
+            return pasar;
         }catch(Exception exx){
             throw new RuntimeException(exx);
         }

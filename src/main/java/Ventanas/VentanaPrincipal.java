@@ -87,7 +87,9 @@ public class VentanaPrincipal {
                 Conexion conexion = new Conexion();
 
                 ResultSet rs = conexion.seleccionarPeli(busqueda);
-                Adapter.adaptar(rs);
+
+                Ventana1 ventana = new Ventana1();
+                ventana.initComponents(Adapter.adaptar(rs));
             }
         }
 
