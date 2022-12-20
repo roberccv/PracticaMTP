@@ -43,7 +43,7 @@ public class VentanaInsert{
         scroll.setLayout(null);
         
         JScrollPane scrollpane = new JScrollPane(); 
-        scrollpane.setBounds(5, 10, 1000, 1000);
+        //scrollpane.setBounds(5, 10, 1000, 1000);
         scroll.setPreferredSize(new Dimension(1000,1000));
         scrollpane.setViewportView(scroll);
         
@@ -56,7 +56,7 @@ public class VentanaInsert{
         // Habilitar el botón de cerrar ("X")
 
         //Cambiar para que no cierre la principal también
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
         // Habilita la distribución de los elementos en la ventana
@@ -106,12 +106,12 @@ public class VentanaInsert{
         //frame.add(cajaTexto3);
         scroll.add(cajaTexto3);
         
-        JLabel titulo4 = new JLabel("Año de estreno:");
+        JLabel titulo4 = new JLabel("Fecha de estreno:");
         titulo4.setBounds(200, 450, 200, 30);
         titulo4.setFont(fuente2);
         scroll.add(titulo4);
         //frame.add(titulo4);
-        cajaTexto4 = new JTextField("Introducir texto...");
+        cajaTexto4 = new JTextField("dd-MM-YYYY");
         cajaTexto4.setBounds(325,450,100,30);
         scroll.add(cajaTexto4);
         //frame.add(cajaTexto4);
@@ -126,34 +126,19 @@ public class VentanaInsert{
         scroll.add(cajaTexto5);
         //frame.add(cajaTexto5);
 
-        JLabel titulo6 = new JLabel("Director:");
-        titulo6.setBounds(200, 650, 200, 30);
-        titulo6.setFont(fuente2);
-        scroll.add(titulo6);
-        //frame.add(titulo6);
-        cajaTexto6 = new JTextField("Introducir texto...");
-        cajaTexto6.setBounds(275,650,100,30);
-        scroll.add(cajaTexto6);
-        //frame.add(cajaTexto6);
+
 
         JLabel titulo7 = new JLabel("Banda Sonora:");
-        titulo7.setBounds(200, 750, 200, 30);
+        titulo7.setBounds(200, 650, 200, 30);
         titulo7.setFont(fuente2);
         scroll.add(titulo7);
         //frame.add(titulo7);
         cajaTexto7 = new JTextField("Introducir texto...");
-        cajaTexto7.setBounds(310,750,100,30);
+        cajaTexto7.setBounds(310,650,100,30);
         scroll.add(cajaTexto7);
         //frame.add(cajaTexto7);
         
-        JLabel titulo8 = new JLabel("Fecha rodaje:");
-        titulo8.setBounds(200, 850, 200, 30);
-        titulo8.setFont(fuente2);
-        scroll.add(titulo8);
-        //frame.add(titulo7);
-        cajaTexto8 = new JTextField("Introducir texto...");
-        cajaTexto8.setBounds(310,850,100,30);
-        scroll.add(cajaTexto8);
+
         //frame.add(cajaTexto7);
 
         // Label
@@ -195,27 +180,22 @@ public class VentanaInsert{
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {
 
         String nombre = cajaTexto.getText();
-        System.out.println(nombre);
         Double dur =  Double.parseDouble(cajaTexto2.getText());
         String genero = cajaTexto3.getText();
         LocalDate anno = LocalDate.parse(cajaTexto4.getText() , DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         Integer ingresos = Integer.parseInt(cajaTexto5.getText());
-        Integer director = Integer.parseInt(cajaTexto6.getText());
+        //Integer director = Integer.parseInt(cajaTexto6.getText());
         String banda = this.cajaTexto7.getText();
        // Date frodaje = new Date(cajaTexto8.getText());
         
-        Conexion cn = new Conexion();
+        Conexion cn = Conexion.getInstance();
         try {
-            cn.insertarPeli(nombre, anno, dur, genero, ingresos, banda, director /*, frodaje*/);
+            cn.insertarPeli(nombre, anno, dur, genero, ingresos, banda );
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
-   
 
-    public void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 
 }

@@ -20,22 +20,7 @@ public class Inico{
         frame.setLayout(null);
 
 
-        class OyenteBoton1 implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e){
 
-                try {
-
-                    VentanaInsert vi = new VentanaInsert();
-                    vi.setVisible(true);
-
-
-                }catch(Exception exx){
-                    exx.printStackTrace();
-
-                }
-            }
-        }
 
         insertar = new JButton("Inserción");
         insertar.addActionListener(new OyenteBoton1());
@@ -47,20 +32,7 @@ public class Inico{
 
 
 
-        class OyenteBoton2 implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e){
 
-                try {
-
-                    VentanaPrincipal vp = new VentanaPrincipal();
-                    vp.setVisible(true);
-
-                }catch(Exception exx){
-                    throw new RuntimeException(exx);
-                }
-            }
-        }
 
 
         consultar = new JButton("Consultas");
@@ -76,9 +48,38 @@ public class Inico{
 
 
     }
+    private class OyenteBoton1 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e){
+
+            try {
+
+                VentanaInsert vi = new VentanaInsert();
 
 
-    public void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+            }catch(Exception exx){
+                exx.printStackTrace();
+
+            }
+        }
     }
+
+    private class OyenteBoton2 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e){
+
+            try {
+
+                VentanaPrincipal vp = new VentanaPrincipal();
+
+
+            }catch(Exception exx){
+                throw new RuntimeException(exx);
+            }
+        }
+    }
+
+
+
 }

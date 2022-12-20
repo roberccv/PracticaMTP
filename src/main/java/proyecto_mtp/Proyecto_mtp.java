@@ -15,6 +15,6 @@ public class Proyecto_mtp {
     public static void main(String[] args) {
         Inico inicio = new Inico();
 
-        inicio.setVisible(true);
+
     }
 }

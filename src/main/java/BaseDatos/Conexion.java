@@ -14,8 +14,9 @@ import java.time.LocalDate;
  * @author aleja
  */
 public class Conexion {
-    
-    public Conexion(){
+
+    private static Conexion instancia;
+    private Conexion(){
 
     }
    
@@ -32,24 +33,27 @@ public class Conexion {
         }
         return cn;
     }
+    public static Conexion getInstance(){
+        if(instancia == null){
+            instancia = new Conexion();
+        }
+        return instancia;
+    }
 
-    public void insertarPeli(String nombre, LocalDate anno, Double duracion, String genero, Integer ingresos, String banda, Integer codDir  /*, Date frodaje*/) throws ParseException {
+    public void insertarPeli(String nombre, LocalDate anno, Double duracion, String genero, Integer ingresos, String banda) throws ParseException {
 
         try{
             //SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
             // Date fecha = (Date) format.parse("09-08-2011");
             Connection c = conectar();
-            PreparedStatement pst = c.prepareStatement("INSERT INTO peliculas VALUES (?,?,?,?,?,?,?,'2011-08-09')");
+            PreparedStatement pst = c.prepareStatement("INSERT INTO peliculas VALUES (?,?,?,?,?,?)");
             pst.setString(1, nombre);
-            System.out.println(duracion);
             pst.setObject(2, anno);
             pst.setDouble(3, duracion);
             pst.setString(4, genero);
             pst.setDouble(5, ingresos);
             pst.setString(6, banda);
-            pst.setInt(7, codDir);
-            //pst.setDate(8, frodaje);
-            
+
             pst.execute();
         }catch(SQLException ex ){
             System.out.println("Fallo");
