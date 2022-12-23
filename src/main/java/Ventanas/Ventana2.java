@@ -3,27 +3,24 @@ package Ventanas;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.ResultSet;
 
-/**
- * @author Alejadro García, Miguel Gamboa, Sergio Díaz y Roberto Cinos
- */
-public class Ventana1 {
-  DefaultTableModel d = new DefaultTableModel();
-  JTable tabla = new JTable();
+public class Ventana2 {
+
+    DefaultTableModel d = new DefaultTableModel();
+    JTable tabla = new JTable();
     
-    public Ventana1(){
+    public Ventana2(){
         initComponents(d);
     }
-
+    
     public void initComponents(DefaultTableModel d) {
         JFrame frame = new JFrame();
-        frame.setSize(700,100);
+        frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         tabla.setModel(d);
         frame.add(tabla, BorderLayout.CENTER);
         frame.add(tabla.getTableHeader(), BorderLayout.NORTH);
         frame.setVisible(true);
     }
-    
+
 }
