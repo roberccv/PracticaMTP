@@ -6,32 +6,16 @@ import java.sql.ResultSet;
 public class Adapter {
     public static String adaptar(ResultSet rs){
 
-        JTextArea resultado = new JTextArea();
+        JTable jTable = new JTable();
+        DefaultTableModel dfm = new DefaultTableModel();
+        jTable.setModel(dfm);
+        dfm.setColumnIdentifiers(new Object[]{"Pelicula", "Fecha Estreno", "Duración", "Género", "Ingresos", "Banda Sonora"});
         try {
 
             while (rs.next()) {
-
-                resultado.append(rs.getString("nombrePelicula"));
-
-                resultado.append("\n");
-                String fechaString = rs.getString("fechaEstreno");
-
-                // = fecha.toString();
-                resultado.append(fechaString);
-                //DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                //String text = df.format(fecha);
-                //resultado.append(text);
-                resultado.append("\n ");
-                resultado.append(String.valueOf(rs.getDouble("duracion")));
-                resultado.append("\n ");
-                resultado.append(rs.getString("genero"));
-                resultado.append(" \n");
-                resultado.append(String.valueOf(rs.getDouble("ingresos")));
-                resultado.append(" \n");
-                resultado.append(rs.getString("nombreBanda"));
-
+                dfm.addRow(new Object[]{rs.getString("nombrePelicula"), rs.getString("fechaEstreno"), rs.getDouble("duracion"), rs.getString("genero"), rs.getDouble("ingresos"), rs.getString("nombreBanda")});
             }
-            return resultado.getText();
+            return dfm;
         }catch(Exception exx){
             throw new RuntimeException(exx);
         }
