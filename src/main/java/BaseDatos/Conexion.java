@@ -88,4 +88,16 @@ public class Conexion {
         }
         return rs;
     }
+    public ResultSet buscarDireccion(String nombre){
+        PreparedStatement pst;
+        ResultSet rs = null;
+        try{
+            pst = conectar().prepareStatement("select nombrePeli from DireccionPelicula inner join Director on DireccionPelicula.codigoDir = Director.codigoDir inner join peliculas on DireccionPelicula.nombrePeli = peliculas.nombrePelicula where nombre = ?;");
+            pst.setString(1, nombre);
+            rs = pst.executeQuery();
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+        return rs;
+    }
 }

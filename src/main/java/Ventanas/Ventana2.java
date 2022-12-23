@@ -16,7 +16,7 @@ public class Ventana2 {
     public void initComponents(DefaultTableModel d) {
         JFrame frame = new JFrame();
         frame.setSize(500,500);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tabla.setModel(d);
         frame.add(tabla, BorderLayout.CENTER);
         frame.add(tabla.getTableHeader(), BorderLayout.NORTH);

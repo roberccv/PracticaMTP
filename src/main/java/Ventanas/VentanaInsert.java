@@ -19,6 +19,7 @@ import BaseDatos.*;
  */
 public class VentanaInsert{
 
+    private JFrame frame;
     private javax.swing.JTextField cajaTexto;
     private javax.swing.JTextField cajaTexto2;
     private javax.swing.JTextField cajaTexto3;
@@ -37,7 +38,7 @@ public class VentanaInsert{
     
     private void initComponents(){   
         // Generar la ventana
-        JFrame frame = new JFrame("Introducir película");
+        frame = new JFrame("Introducir película");
         
         JPanel scroll = new JPanel();
         scroll.setLayout(null);
@@ -192,6 +193,10 @@ public class VentanaInsert{
         try {
             cn.insertarPeli(nombre, anno, dur, genero, ingresos, banda );
         } catch (ParseException e) {
+            JOptionPane.showMessageDialog(frame,
+                    "Error itroducioendo la película, revise que todos loc campos han sido rellenados correctamente",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
     }

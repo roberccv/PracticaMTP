@@ -14,6 +14,7 @@ import BaseDatos.Conexion;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,6 +25,7 @@ public class VentanaPrincipal {
     JTextField actTexto;
     JTextField cajaTexto;
     JFrame frame;
+    JTextField dirTexto;
     int bloque1 = 150;
     int bloque2 = -170;
 
@@ -82,44 +84,12 @@ public class VentanaPrincipal {
         frame.add(cajaTexto);
 
 
-        class OyenteBoton implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setState(busPeli);
-                busPeli = cajaTexto.getText();
-                System.out.println(busPeli);
 
-                String busqueda = cajaTexto.getText();
-
-
-                Conexion conexion = Conexion.getInstance();
-
-                ResultSet rs = conexion.seleccionarPeli(busqueda);
-
-                Ventana1 ventana = new Ventana1();
-                ventana.initComponents(Adapter.adaptar(rs));
-            }
-        }
 
         JButton botonBusqueda = new JButton("Buscar");
         botonBusqueda.addActionListener(new OyenteBoton());
         botonBusqueda.setBounds(800, 240 + bloque1, 100, 20);
         frame.add(botonBusqueda);
-
-        class deshacer implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                if (busPeli2 == null) {
-                    System.out.println("No existe búsqueda anterior`");
-                } else {
-                    System.out.println("La busqueda anterior es" + getState());
-                    cajaTexto.setText(getState());
-                    cajaTexto.setBounds(100, 200 + bloque1, 800, 30);
-                    frame.add(cajaTexto);
-                }
-            }
-        }
 
         JButton deshacer = new JButton("Búsqueda anterior");
         deshacer.addActionListener(new deshacer());
@@ -172,17 +142,11 @@ public class VentanaPrincipal {
         dirLabel.setBounds(100, 650 + bloque2, 200, 30);
         frame.add(dirLabel);
 
-        JTextField dirTexto = new JTextField("James Cameron");
+        dirTexto = new JTextField("James Cameron");
         dirTexto.setBounds(100, 680 + bloque2, 800, 30);
         frame.add(dirTexto);
 
-        class OyenteBotonDir implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String busqueda = dirTexto.getText();
 
-            }
-        }
 
         JButton botonBusquedaDir = new JButton("Buscar");
         botonBusquedaDir.addActionListener(new OyenteBotonDir());
@@ -193,7 +157,38 @@ public class VentanaPrincipal {
         frame.setVisible(true);
 
     }
-    class deshacer implements ActionListener {
+    private class OyenteBoton implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setState(busPeli);
+            busPeli = cajaTexto.getText();
+
+            String busqueda = cajaTexto.getText();
+
+
+            Conexion conexion = Conexion.getInstance();
+
+            ResultSet rs = conexion.seleccionarPeli(busqueda);
+            try {
+                if (rs.next() == false) {
+                    JOptionPane.showMessageDialog(frame,
+                            "La película que está buscando no se encuentra en nuestra base de datos",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    Ventana1 ventana = new Ventana1();
+                    ventana.initComponents(Adapter.adaptar(rs));
+
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        }
+    }
+    private class deshacer implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -207,31 +202,81 @@ public class VentanaPrincipal {
             }
         }
     }
+    private class OyenteBotonDir implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            String busqueda = dirTexto.getText();
+            Ventana2 ventana = new Ventana2();
+            Conexion conexion = Conexion.getInstance();
+            ResultSet rs = conexion.buscarDireccion(busqueda);
+            try {
+                if (rs.next() == false) {
+                    JOptionPane.showMessageDialog(frame,
+                            "El/la director/directora que está buscando no se encuentra en nuestra base de datos",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JTable jTable1 = new JTable();
+                    DefaultTableModel dfmbuscar = new DefaultTableModel();
+                    jTable1.setModel(dfmbuscar);
+                    dfmbuscar.setColumnIdentifiers(new Object[]{"Películas que dirije este director"});
+
+                    try {
+                        while (rs.next()) {
+                            dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
+                        }
+                        ventana.initComponents(dfmbuscar);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+
+        }
+    }
     private class OyenteBotonAct implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
-         String busqueda = actTexto.getText();
-         Ventana2 ventana = new Ventana2();
-         Conexion conexion = Conexion.getInstance();
-         ResultSet rs = conexion.buscarInterpretacion(busqueda);
-         JTable  jTable1 = new JTable();
-         DefaultTableModel dfmbuscar = new DefaultTableModel();
-         jTable1.setModel(dfmbuscar);
-         dfmbuscar.setColumnIdentifiers(new Object[]{"Películas que interpreta este actor"});
+            String busqueda = actTexto.getText();
+            Ventana2 ventana = new Ventana2();
+            Conexion conexion = Conexion.getInstance();
+            ResultSet rs = conexion.buscarInterpretacion(busqueda);
+            try {
+                if (rs.next() == false) {
+                    JOptionPane.showMessageDialog(frame,
+                            "El/la actor/actriz que está buscando no se encuentra en nuestra base de datos",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JTable jTable1 = new JTable();
+                    DefaultTableModel dfmbuscar = new DefaultTableModel();
+                    jTable1.setModel(dfmbuscar);
+                    dfmbuscar.setColumnIdentifiers(new Object[]{"Películas que interpreta este actor"});
 
-                try {
-                    while(rs.next()){
-                        dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
+                    try {
+                        while (rs.next()) {
+                            dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
+                        }
+                        ventana.initComponents(dfmbuscar);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
                     }
-                    ventana.initComponents(dfmbuscar);
-                }catch (Exception ex){
-                    throw new RuntimeException(ex);
                 }
-        }
-    }
 
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+
+    }
 
 }
 
