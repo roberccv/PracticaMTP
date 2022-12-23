@@ -2,9 +2,10 @@ package Ventanas;
 
 import javax.swing.*;
 import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 public class Adapter {
-    public static String adaptar(ResultSet rs){
+    public static DefaultTableModel adaptar(ResultSet rs){
 
         JTable jTable = new JTable();
         DefaultTableModel dfm = new DefaultTableModel();
