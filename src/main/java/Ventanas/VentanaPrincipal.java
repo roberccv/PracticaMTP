@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaPrincipal {
     public VentanaPrincipal() {
@@ -211,21 +212,23 @@ public class VentanaPrincipal {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+         String busqueda = actTexto.getText();
+         Ventana2 ventana = new Ventana2();
+         Conexion conexion = Conexion.getInstance();
+         ResultSet rs = conexion.buscarInterpretacion(busqueda);
+         JTable  jTable1 = new JTable();
+         DefaultTableModel dfmbuscar = new DefaultTableModel();
+         jTable1.setModel(dfmbuscar);
+         dfmbuscar.setColumnIdentifiers(new Object[]{"Películas que interpreta este actor"});
 
-            String busqueda = actTexto.getText();
-            Ventana2 ventana = new Ventana2();
-            Conexion conexion = Conexion.getInstance();
-            ResultSet rs = conexion.buscarInterpretacion(busqueda);
-            StringBuilder resultado = new StringBuilder();
-            try {
-                while (rs.next()) {
-                    resultado.append(rs.getString("nombrePeli"));
-                    resultado.append('\n');
+                try {
+                    while(rs.next()){
+                        dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
+                    }
+                    ventana.initComponents(dfmbuscar);
+                }catch (Exception ex){
+                    throw new RuntimeException(ex);
                 }
-                ventana.initComponents(resultado.toString());
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
         }
     }
 
