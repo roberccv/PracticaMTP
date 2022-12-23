@@ -207,7 +207,6 @@ public class VentanaPrincipal {
         public void actionPerformed(ActionEvent e) {
 
             String busqueda = dirTexto.getText();
-            Ventana2 ventana = new Ventana2();
             Conexion conexion = Conexion.getInstance();
             ResultSet rs = conexion.buscarDireccion(busqueda);
             try {
@@ -217,12 +216,14 @@ public class VentanaPrincipal {
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
+                    Ventana2 ventana = new Ventana2();
                     JTable jTable1 = new JTable();
                     DefaultTableModel dfmbuscar = new DefaultTableModel();
                     jTable1.setModel(dfmbuscar);
                     dfmbuscar.setColumnIdentifiers(new Object[]{"Películas que dirije este director"});
 
                     try {
+                        dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
                         while (rs.next()) {
                             dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
                         }
@@ -245,22 +246,23 @@ public class VentanaPrincipal {
         public void actionPerformed(ActionEvent e) {
 
             String busqueda = actTexto.getText();
-            Ventana2 ventana = new Ventana2();
             Conexion conexion = Conexion.getInstance();
             ResultSet rs = conexion.buscarInterpretacion(busqueda);
             try {
-                if (rs.next() == false) {
+                if (!rs.next()) {
                     JOptionPane.showMessageDialog(frame,
                             "El/la actor/actriz que está buscando no se encuentra en nuestra base de datos",
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
+                    Ventana2 ventana = new Ventana2();
                     JTable jTable1 = new JTable();
                     DefaultTableModel dfmbuscar = new DefaultTableModel();
                     jTable1.setModel(dfmbuscar);
                     dfmbuscar.setColumnIdentifiers(new Object[]{"Películas que interpreta este actor"});
 
                     try {
+                        dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
                         while (rs.next()) {
                             dfmbuscar.addRow(new Object[]{rs.getString("nombrePeli")});
                         }

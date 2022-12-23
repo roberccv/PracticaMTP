@@ -12,7 +12,7 @@ public class Adapter {
         jTable.setModel(dfm);
         dfm.setColumnIdentifiers(new Object[]{"Pelicula", "Fecha Estreno", "Duración", "Género", "Ingresos", "Banda Sonora"});
         try {
-
+            dfm.addRow(new Object[]{rs.getString("nombrePelicula"), rs.getString("fechaEstreno"), rs.getDouble("duracion"), rs.getString("genero"), rs.getDouble("ingresos"), rs.getString("nombreBanda")});
             while (rs.next()) {
                 dfm.addRow(new Object[]{rs.getString("nombrePelicula"), rs.getString("fechaEstreno"), rs.getDouble("duracion"), rs.getString("genero"), rs.getDouble("ingresos"), rs.getString("nombreBanda")});
             }
