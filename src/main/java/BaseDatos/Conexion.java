@@ -92,7 +92,7 @@ public class Conexion {
         PreparedStatement pst;
         ResultSet rs = null;
         try{
-            pst = conectar().prepareStatement("select nombrePeli from DireccionPelicula inner join Director on DireccionPelicula.codigoDir = Director.codigoDir inner join peliculas on DireccionPelicula.nombrePeli = peliculas.nombrePelicula where nombre = ?;");
+            pst = conectar().prepareStatement("select nombrePeli from DireccionPelicula inner join Director on DireccionPelicula.codigoDir = Director.codigoDir inner join peliculas on DireccionPelicula.nombrePeli = peliculas.nombrePelicula where nombreDir = ?;");
             pst.setString(1, nombre);
             rs = pst.executeQuery();
         }catch(Exception e){
