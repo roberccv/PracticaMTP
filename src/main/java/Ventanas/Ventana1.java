@@ -1,37 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Ventanas;
 
-
-
 import javax.swing.*;
-
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 /**
- *
- * @author Rober
+ * @author Alejandro García, Roberto Cinos, Sergio Diaz y Miguel Gamboa
  */
 public class Ventana1 {
-
+  DefaultTableModel d = new DefaultTableModel();
+  JTable tabla = new JTable();
     public Ventana1(){
-
+        initComponents(d);
     }
 
 
-    public void initComponents(String pasar) {
-
-
+    public void initComponents(DefaultTableModel d) {
         JFrame frame = new JFrame();
-        frame.setSize(500,500);
+        frame.setSize(700,100);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-        //JTextArea resul = new JTextArea();
-        //JLabel probar = new JLabel(nombre );
-        //JLabel dur = new JLabel(String.valueOf(duracion));
-        JTextField texto = new JTextField(pasar);
-        frame.add(texto);
+        tabla.setModel(d);
+        frame.add(tabla, BorderLayout.CENTER);
+        frame.add(tabla.getTableHeader(), BorderLayout.NORTH);
         frame.setVisible(true);
 
 
