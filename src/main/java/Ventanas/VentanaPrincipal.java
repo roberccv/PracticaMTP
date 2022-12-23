@@ -79,7 +79,7 @@ public class VentanaPrincipal {
         //ELEMENTOS
 
         //TextFiled
-        JTextField cajaTexto = new JTextField("Titanic");
+        cajaTexto = new JTextField("Titanic");
         cajaTexto.setBounds(100, 200 + bloque1, 800, 30);
         frame.add(cajaTexto);
 
@@ -142,7 +142,7 @@ public class VentanaPrincipal {
         dirLabel.setBounds(100, 650 + bloque2, 200, 30);
         frame.add(dirLabel);
 
-        dirTexto = new JTextField("James Cameron");
+        dirTexto = new JTextField("David Yates");
         dirTexto.setBounds(100, 680 + bloque2, 800, 30);
         frame.add(dirTexto);
 
